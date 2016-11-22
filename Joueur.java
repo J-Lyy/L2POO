@@ -32,6 +32,62 @@ public class Joueur extends Licencie {
 			return false;
 		return true;
 	}
+
+	public int getNumeroDeLicence() {
+		return numeroDeLicence;
+	}
+
+	public void setNumeroDeLicence(int numeroDeLicence) {
+		this.numeroDeLicence = numeroDeLicence;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public Calendar getDateDeValidite() {
+		return dateDeValidite;
+	}
+
+	public void setDateDeValidite(Calendar dateDeValidite) {
+		this.dateDeValidite = dateDeValidite;
+	}
+
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
+	}
+
+	public String getPoste() {
+		return poste;
+	}
+
+	public void setPoste(String poste) {
+		this.poste = poste;
+	}
+
+	public int getNumeroMaillot() {
+		return numeroMaillot;
+	}
+
+	public void setNumeroMaillot(int numeroMaillot) {
+		this.numeroMaillot = numeroMaillot;
+	}
 	
 
 }
