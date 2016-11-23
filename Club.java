@@ -4,7 +4,7 @@ public class Club {
 	private String nom;
 	private String ville;
 	
-	public Club(String nom, String Ville)
+	public Club(String nom, String ville)
 	{
 		this.nom = nom;
 		this.ville = ville;
@@ -12,7 +12,7 @@ public class Club {
 	
 	public String toString()
 	{
-		return ("Club "+nom+" dans la ville : "+ville);
+		return ("Club "+nom+" de "+ville);
 	}
 
 	

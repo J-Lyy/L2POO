@@ -2,11 +2,11 @@ package projet;
 import java.util.Calendar;
 
 public abstract class Licencie {
-	private int numeroDeLicence;
-	private String nom;
-	private String prenom;
-	private Calendar dateDeValidite;
-	private Club club;
+	protected int numeroDeLicence;
+	protected String nom;
+	protected String prenom;
+	protected Calendar dateDeValidite;
+	protected Club club;
 	
 	public Licencie(int numLic, String nom, String prenom, Calendar dateValidite, Club club)
 	{

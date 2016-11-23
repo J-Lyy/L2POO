@@ -5,6 +5,7 @@ public class Equipe {
 	private Set<Joueur> titulaires;
 	private Set<Joueur> remplaçant;
 	private Joueur gardien;
+	private Entraineur entraineur;
 	int comptTitulaire = 0;
 	int comptRemplaçant = 0;
 	
@@ -14,7 +15,7 @@ public class Equipe {
 		remplaçant = new HashSet<>();
 	}
 	
-	public void ajouter(Joueur j)
+	public void ajouterJoueur(Joueur j)
 	{
 		Iterator<Joueur> it = titulaires.iterator();
 		Iterator<Joueur> it1 = remplaçant.iterator();
@@ -23,13 +24,13 @@ public class Equipe {
 		{
 			Joueur j1 = it.next();
 			if(j.equals(j1))
-				throw new IllegalArgumentException("Joueur deja dans l'equipe");
+				throw new IllegalArgumentException("Le joueur est deja dans l'equipe");
 		}
 		while(it1.hasNext())
 		{
-			Joueur j2 = it.next();
+			Joueur j2 = it1.next();
 			if(j.equals(j2))
-				throw new IllegalArgumentException("Joueur deja dans l'equipe");
+				throw new IllegalArgumentException("Le joueur est deja dans l'equipe");
 		}
 		
 		
@@ -55,7 +56,61 @@ public class Equipe {
 				throw new IllegalArgumentException("L'equipe a déjà assez de remplaçant");
 			remplaçant.add(j);
 			comptRemplaçant++;
+		}	
+	}
+	
+	public boolean supprimerJoueur(Joueur j)
+	{
+		if(j.getPoste().equals("gardien") && (gardien != null))
+		{
+			gardien = null;
+			return true;
 		}
+		else
+		{
+			if(j.getPoste().equals("titulaire"))
+			{
+				Iterator<Joueur> it = titulaires.iterator();
+				while(it.hasNext())
+				{
+					Joueur j1 = it.next();
+					if(j.equals(j1))
+					{
+						titulaires.remove(j1);
+						return true;
+					}
+				}
+			}
+			if(j.getPoste().equals("remplaçant"))
+			{
+				Iterator<Joueur> it = remplaçant.iterator();
+				while(it.hasNext())
+				{
+					Joueur j1 = it.next();
+					if(j.equals(j1))
+					{
+						remplaçant.remove(j1);
+						return true;
+					}
+				}						
+			}
+		}
+		return false;
+	}
+	
+	public void ajouterEntraineur(Entraineur e)
+	{
+		if(entraineur == null)
+			entraineur = e;
+		else
+			throw new IllegalArgumentException("L'equipe a deja un entraineur");
+	}
+	
+	public void supprimerEntraineur()
+	{
+		if(entraineur == null)
+			throw new IllegalArgumentException("L'equipe n'avait pas d'entraineur");
+		entraineur = null;
 			
 	}
 	
@@ -66,5 +121,24 @@ public class Equipe {
 		return false;
 	}
 	
+	public String toString()
+	{
+		String s ="Les titulaires de l'equipe : \n";
+		Iterator<Joueur> it = titulaires.iterator();
+		while(it.hasNext())
+		{
+			Joueur j1 = it.next();
+			s+=j1.toString()+"\n";
+		}
+		s+="Les remplaçant de l'equipe : \n";
+		
+		Iterator<Joueur> it1 = remplaçant.iterator();
+		while(it1.hasNext())
+		{
+			Joueur j1 = it1.next();
+			s+=j1.toString()+"\n";
+		}
+		return s;
+	}
 	
 }

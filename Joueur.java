@@ -3,18 +3,13 @@ package projet;
 import java.util.Calendar;
 
 public class Joueur extends Licencie {
-	private int numeroDeLicence;
-	private String nom;
-	private String prenom;
-	private Calendar dateDeValidite;
-	private Club club;
 	private String poste;
 	private int numeroMaillot;
 	
 	public Joueur(int numLic, String nom, String prenom, Calendar dateValidite, Club club, String poste, int numeroDeMaillot)
 	{
 		super(numLic,nom,prenom,dateValidite,club);
-		if((poste.equals("titulaire") || poste.equals("remplaçant") || poste.equals("gardien")))
+		if((poste.equals("titulaire") && poste.equals("remplaçant") && poste.equals("gardien")))
 			throw new IllegalArgumentException("Le poste peut être titulaire, remplaçant ou gardien");
 		this.poste = poste;
 		this.numeroMaillot = numeroDeMaillot;
@@ -31,6 +26,11 @@ public class Joueur extends Licencie {
 		if (numeroDeLicence != other.numeroDeLicence)
 			return false;
 		return true;
+	}
+	
+	public String toString()
+	{
+		return (poste+" "+nom+" "+prenom+" du club "+club+" de numero de maillot : "+numeroMaillot);
 	}
 
 	public int getNumeroDeLicence() {
