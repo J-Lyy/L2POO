@@ -3,19 +3,16 @@ package projet;
 public class Club {
 	private String nom;
 	private String ville;
-	
-	public Club(String nom, String ville)
-	{
+
+	public Club(String nom, String ville) {
 		this.nom = nom;
 		this.ville = ville;
 	}
-	
-	public String toString()
-	{
-		return ("Club "+nom+" de "+ville);
+
+	public String toString() {
+		return ("Club " + nom + " de " + ville);
 	}
 
-	
 	public String getNom() {
 		return nom;
 	}
@@ -31,7 +28,5 @@ public class Club {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-	
-	
 
 }

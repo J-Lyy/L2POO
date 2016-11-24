@@ -1,144 +1,134 @@
 package projet;
+
 import java.util.*;
 
 public class Equipe {
 	private Set<Joueur> titulaires;
 	private Set<Joueur> remplaçant;
-	private Joueur gardien;
 	private Entraineur entraineur;
-	int comptTitulaire = 0;
-	int comptRemplaçant = 0;
-	
-	public Equipe()
-	{
+	int comptAttaquant = 0;
+	int comptDefenseur = 0;
+
+	public Equipe() {
 		titulaires = new HashSet<>();
 		remplaçant = new HashSet<>();
 	}
-	
-	public void ajouterJoueur(Joueur j)
-	{
-		Iterator<Joueur> it = titulaires.iterator();
-		Iterator<Joueur> it1 = remplaçant.iterator();
+
+	public void ajouterJoueur(Joueur j) {
 		
-		while(it.hasNext())
-		{
-			Joueur j1 = it.next();
-			if(j.equals(j1))
-				throw new IllegalArgumentException("Le joueur est deja dans l'equipe");
-		}
-		while(it1.hasNext())
-		{
-			Joueur j2 = it1.next();
-			if(j.equals(j2))
-				throw new IllegalArgumentException("Le joueur est deja dans l'equipe");
-		}
-		
+		if(estDansEquipe(j))
+			throw new IllegalArgumentException("Le joueur est deja dans l'equipe");
 		
 		if(j.getPoste().equals("gardien"))
-		{
-			if(gardien==null)
-				gardien = j;
-			else
+			if (aGardien())
 				throw new IllegalArgumentException("L'equipe a deja un gardien");
+			else
+				titulaires.add(j);
+
+		if (j.getPoste().equals("attaquant")) {
+			if (comptAttaquant == 4)
+			{
+				if(remplaçant.size()==5)
+					throw new IllegalArgumentException("L'equipe n'a plus de place");
+				remplaçant.add(j);
+			}
+			else
+			{
+				titulaires.add(j);
+				comptAttaquant++;
+			}
 		}
-			
-		if(j.getPoste().equals("titulaire"))
-		{
-			if(comptTitulaire==9)
-				throw new IllegalArgumentException("L'equipe a déjà assez de titulaire");
-			titulaires.add(j);
-			comptTitulaire++;
+
+		if (j.getPoste().equals("defenseur")) {
+			if (comptDefenseur == 4)
+			{
+				if(remplaçant.size()==5)
+					throw new IllegalArgumentException("L'equipe n'a plus de place");
+				remplaçant.add(j);
+			}
+			else
+			{
+				titulaires.add(j);
+				comptDefenseur++;
+			}
+				
 		}
-		
-		if(j.getPoste().equals("remplaçant"))
-		{
-			if(comptTitulaire==5)
-				throw new IllegalArgumentException("L'equipe a déjà assez de remplaçant");
-			remplaçant.add(j);
-			comptRemplaçant++;
-		}	
 	}
-	
-	public boolean supprimerJoueur(Joueur j)
-	{
-		if(j.getPoste().equals("gardien") && (gardien != null))
+
+	public boolean supprimerJoueur(Joueur j) {
+		if(titulaires.contains(j))
 		{
-			gardien = null;
+			if(j.getPoste().equals("attaquant"))
+				comptAttaquant--;
+			
+			if(j.getPoste().equals("defenseur"))
+				comptDefenseur--;
+			
+			titulaires.remove(j);
 			return true;
 		}
-		else
+		
+		if(remplaçant.contains(j))
 		{
-			if(j.getPoste().equals("titulaire"))
-			{
-				Iterator<Joueur> it = titulaires.iterator();
-				while(it.hasNext())
-				{
-					Joueur j1 = it.next();
-					if(j.equals(j1))
-					{
-						titulaires.remove(j1);
-						return true;
-					}
-				}
-			}
-			if(j.getPoste().equals("remplaçant"))
-			{
-				Iterator<Joueur> it = remplaçant.iterator();
-				while(it.hasNext())
-				{
-					Joueur j1 = it.next();
-					if(j.equals(j1))
-					{
-						remplaçant.remove(j1);
-						return true;
-					}
-				}						
-			}
+			remplaçant.remove(j);
+			return true;
 		}
+		
 		return false;
 	}
-	
-	public void ajouterEntraineur(Entraineur e)
-	{
-		if(entraineur == null)
+
+	public void ajouterEntraineur(Entraineur e) {
+		if (entraineur == null)
 			entraineur = e;
 		else
 			throw new IllegalArgumentException("L'equipe a deja un entraineur");
 	}
-	
-	public void supprimerEntraineur()
-	{
-		if(entraineur == null)
+
+	public void supprimerEntraineur() {
+		if (entraineur == null)
 			throw new IllegalArgumentException("L'equipe n'avait pas d'entraineur");
 		entraineur = null;
-			
+
 	}
-	
-	public boolean equipeValide()
-	{
-		if((comptTitulaire == 9) && (comptRemplaçant>0) && (comptRemplaçant<6) && (gardien != null))
+
+	public boolean equipeValide() {
+		if(titulaires.size()==9 && remplaçant.size()>0 && remplaçant.size()<6 && aGardien())
 			return true;
 		return false;
 	}
 	
-	public String toString()
-	{
-		String s ="Les titulaires de l'equipe : \n";
+	public boolean estDansEquipe(Joueur j) {
+		if(titulaires.contains(j) || remplaçant.contains(j))
+			return true;
+		return false;
+	}
+	
+	public boolean aGardien() {
 		Iterator<Joueur> it = titulaires.iterator();
-		while(it.hasNext())
+		while (it.hasNext())
 		{
 			Joueur j1 = it.next();
-			s+=j1.toString()+"\n";
+			if(j1.getPoste().equals("gardien"))
+				return true;				
 		}
-		s+="Les remplaçant de l'equipe : \n";
-		
+		return false;
+	}
+
+	public String toString() {
+		String s = "Les titulaires de l'equipe : \n";
+		Iterator<Joueur> it = titulaires.iterator();
+		while (it.hasNext()) {
+			Joueur j1 = it.next();
+			s += j1.toString() + "\n";
+		}
+		s += "Les remplaçant de l'equipe : \n";
+
 		Iterator<Joueur> it1 = remplaçant.iterator();
-		while(it1.hasNext())
-		{
+		while (it1.hasNext()) {
 			Joueur j1 = it1.next();
-			s+=j1.toString()+"\n";
+			s += j1.toString() + "\n";
 		}
 		return s;
 	}
-	
+
 }
