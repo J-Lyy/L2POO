@@ -11,8 +11,8 @@ public class Equipe {
 	int comptDefenseur = 0;
 
 	public Equipe(Club club) {
-		titulaires = new TreeSet<>();
-		remplaçant = new TreeSet<>();
+		titulaires = new HashSet<>();
+		remplaçant = new HashSet<>();
 		this.club = club;
 	}
 
@@ -120,13 +120,6 @@ public class Equipe {
 			if(j1.getPoste().equals("gardien"))
 				return true;				
 		}
-		return false;
-	}
-	
-	public boolean estTitulaire(Joueur j)
-	{
-		if(titulaires.contains(j))
-			return true;
 		return false;
 	}
 

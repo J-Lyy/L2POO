@@ -7,7 +7,7 @@ public class Test {
 	public static void main(String[] args) {
 		
 		Club club = new Club("sport","Orléans");
-		//Club club1 = new Club("yolo","Strasbourg");
+		Club club1 = new Club("yolo","Strasbourg");
 		Equipe e = new Equipe(club);
 		Joueur j1 = new Joueur(101,"Jean","David",Calendar.getInstance(),club,"attaquant",1);
 		Joueur j2 = new Joueur(111,"a","k",Calendar.getInstance(),club,"attaquant",2);
