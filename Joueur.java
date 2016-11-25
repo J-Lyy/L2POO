@@ -2,7 +2,7 @@ package projet;
 
 import java.util.Calendar;
 
-public class Joueur extends Licencie {
+public class Joueur extends Licencie implements Comparable<Joueur> {
 	private String poste;
 	private int numeroMaillot;
 	
@@ -87,6 +87,15 @@ public class Joueur extends Licencie {
 
 	public void setNumeroMaillot(int numeroMaillot) {
 		this.numeroMaillot = numeroMaillot;
+	}
+
+
+	public int compareTo(Joueur j) {
+		if(this.numeroMaillot<j.numeroMaillot)
+			return -1;
+		if(this.numeroMaillot==j.numeroMaillot)
+			return 0;
+		return 1;
 	}
 	
 
