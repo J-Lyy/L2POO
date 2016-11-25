@@ -4,22 +4,23 @@ import java.util.*;
 
 public class Equipe {
 	private Set<Joueur> titulaires;
-	private Set<Joueur> remplaçant;
+	private Set<Joueur> remplacant;
 	private Entraineur entraineur;
 	private Club club;
-	int comptAttaquant = 0;
-	int comptDefenseur = 0;
+	private int comptAttaquant = 0;
+	private int comptDefenseur = 0;
 
-	public Equipe(Club club) {
-		titulaires = new HashSet<>();
-		remplaçant = new HashSet<>();
+	public Equipe(Club club, Entraineur e) {
+		titulaires = new TreeSet<>();
+		remplacant = new TreeSet<>();
 		this.club = club;
+		entraineur = e ;
 	}
 
 	public void ajouterJoueur(Joueur j) {
 		
 		if(!j.getClub().equals(club))
-			throw new IllegalArgumentException("Impossible d'ajouter dans l'équipe un joueur d'un autre club");
+			throw new IllegalArgumentException("Impossible d'ajouter dans l'equipe un joueur d'un autre club");
 		
 		if(estDansEquipe(j))
 			throw new IllegalArgumentException("Le joueur est deja dans l'equipe");
@@ -27,19 +28,19 @@ public class Equipe {
 		if(j.getPoste().equals("gardien"))
 			if (aGardien())
 			{
-				if(remplaçant.size()==5)
+				if(remplacant.size()==5)
 					throw new IllegalArgumentException("L'equipe n'a plus de place");
-				remplaçant.add(j);
+				remplacant.add(j);
 			}
-			else
+			else{
 				titulaires.add(j);
-
+			}
 		if (j.getPoste().equals("attaquant")) {
 			if (comptAttaquant == 4)
 			{
-				if(remplaçant.size()==5)
+				if(remplacant.size()==5)
 					throw new IllegalArgumentException("L'equipe n'a plus de place");
-				remplaçant.add(j);
+				remplacant.add(j);
 			}
 			else
 			{
@@ -51,9 +52,9 @@ public class Equipe {
 		if (j.getPoste().equals("defenseur")) {
 			if (comptDefenseur == 4)
 			{
-				if(remplaçant.size()==5)
+				if(remplacant.size()==5)
 					throw new IllegalArgumentException("L'equipe n'a plus de place");
-				remplaçant.add(j);
+				remplacant.add(j);
 			}
 			else
 			{
@@ -61,6 +62,21 @@ public class Equipe {
 				comptDefenseur++;
 			}
 				
+		}
+	}
+	
+	public void etatInitialEquipe(){
+		Iterator<Joueur> it = titulaires.iterator();
+		while (it.hasNext())
+		{
+			Joueur j1 = it.next();
+			j1.setEnJeu(true);			
+		}
+		
+		Iterator<Joueur> it2 = remplacant.iterator();
+		while (it.hasNext()){
+			Joueur j2 = it2.next();
+			j2.setEnJeu(false);
 		}
 	}
 
@@ -77,37 +93,23 @@ public class Equipe {
 			return true;
 		}
 		
-		if(remplaçant.contains(j))
+		if(remplacant.contains(j))
 		{
-			remplaçant.remove(j);
+			remplacant.remove(j);
 			return true;
 		}
 		
 		return false;
 	}
 
-	public void ajouterEntraineur(Entraineur e) {
-		if (entraineur == null)
-			entraineur = e;
-		else
-			throw new IllegalArgumentException("L'equipe a deja un entraineur");
-	}
-
-	public void supprimerEntraineur() {
-		if (entraineur == null)
-			throw new IllegalArgumentException("L'equipe n'avait pas d'entraineur");
-		entraineur = null;
-
-	}
-
 	public boolean equipeValide() {
-		if(titulaires.size()==9 && remplaçant.size()>0 && remplaçant.size()<6 && aGardien())
+		if(titulaires.size()==9 && remplacant.size()>0 && remplacant.size()<6 && aGardien())
 			return true;
 		return false;
 	}
 	
 	public boolean estDansEquipe(Joueur j) {
-		if(titulaires.contains(j) || remplaçant.contains(j))
+		if(titulaires.contains(j) || remplacant.contains(j))
 			return true;
 		return false;
 	}
@@ -122,6 +124,13 @@ public class Equipe {
 		}
 		return false;
 	}
+	
+	public boolean estTitulaire(Joueur j)
+	{
+		if(titulaires.contains(j))
+			return true;
+		return false;
+	}
 
 	public String toString() {
 		String s = "Les titulaires de l'equipe : \n";
@@ -130,9 +139,9 @@ public class Equipe {
 			Joueur j1 = it.next();
 			s += j1.toString() + "\n";
 		}
-		s += "Les remplaçant de l'equipe : \n";
+		s += "Les remplacant de l'equipe : \n";
 
-		Iterator<Joueur> it1 = remplaçant.iterator();
+		Iterator<Joueur> it1 = remplacant.iterator();
 		while (it1.hasNext()) {
 			Joueur j1 = it1.next();
 			s += j1.toString() + "\n";
@@ -143,5 +152,11 @@ public class Equipe {
 	public Club getClub() {
 		return club;
 	}
+
+	public void setEntraineur(Entraineur entraineur) {
+		this.entraineur = entraineur;
+	}
+	
+	
 
 }

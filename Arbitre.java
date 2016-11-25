@@ -3,18 +3,13 @@ package projet;
 import java.util.Calendar;
 
 public class Arbitre extends Licencie {
-	private int numeroDeLicence;
-	private String nom;
-	private String prenom;
-	private Calendar dateDeValidite;
-	private Club club;
 	private int categorie;
 	
-	public Arbitre(int numLic, String nom, String prenom, Calendar dateValidite, Club club, String poste, int categorie)
+	public Arbitre(int numLic, String nom, String prenom, Calendar dateValidite, Club club, int categorie)
 	{
 		super(numLic,nom,prenom,dateValidite,club);
 		if((categorie<1) || (categorie>3))
-			throw new IllegalArgumentException("La catï¿½gorie doit ï¿½tre comprise entre 1 et 3");
+			throw new IllegalArgumentException("La catégorie doit être comprise entre 1 et 3");
 		this.categorie = categorie;
 	}
 }
