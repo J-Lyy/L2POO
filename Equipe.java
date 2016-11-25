@@ -6,22 +6,31 @@ public class Equipe {
 	private Set<Joueur> titulaires;
 	private Set<Joueur> remplaçant;
 	private Entraineur entraineur;
+	private Club club;
 	int comptAttaquant = 0;
 	int comptDefenseur = 0;
 
-	public Equipe() {
+	public Equipe(Club club) {
 		titulaires = new HashSet<>();
 		remplaçant = new HashSet<>();
+		this.club = club;
 	}
 
 	public void ajouterJoueur(Joueur j) {
+		
+		if(!j.getClub().equals(club))
+			throw new IllegalArgumentException("Impossible d'ajouter dans l'équipe un joueur d'un autre club");
 		
 		if(estDansEquipe(j))
 			throw new IllegalArgumentException("Le joueur est deja dans l'equipe");
 		
 		if(j.getPoste().equals("gardien"))
 			if (aGardien())
-				throw new IllegalArgumentException("L'equipe a deja un gardien");
+			{
+				if(remplaçant.size()==5)
+					throw new IllegalArgumentException("L'equipe n'a plus de place");
+				remplaçant.add(j);
+			}
 			else
 				titulaires.add(j);
 
@@ -129,6 +138,10 @@ public class Equipe {
 			s += j1.toString() + "\n";
 		}
 		return s;
+	}
+
+	public Club getClub() {
+		return club;
 	}
 
 }
