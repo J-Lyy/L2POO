@@ -58,6 +58,19 @@ public abstract class Licencie {
 	}
 	
 	public String toString(){
-		return (nom + " " + prenom + " dans le club : " + club + " de numéro de license " + numeroDeLicence + " expirant le " + dateDeValidite ) ;
+		return (nom + " " + prenom + " dans le club : " + club + " de numéro de license " + numeroDeLicence + " expirant le " + dateDeValidite.get(Calendar.DAY_OF_MONTH)+" "+ (dateDeValidite.get(Calendar.MONTH)+1)+" " + dateDeValidite.get(Calendar.YEAR)+"\n") ;
+	}
+	
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Joueur other = (Joueur) obj;
+		if (numeroDeLicence != other.numeroDeLicence)
+			return false;
+		return true;
 	}
 }

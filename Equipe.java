@@ -2,21 +2,26 @@ package projet;
 
 import java.util.*;
 
-public class Equipe {
+public class Equipe implements Comparable<Equipe> {
 	private Set<Joueur> titulaires;
 	private Set<Joueur> remplacant;
 	private Entraineur entraineur;
 	private Club club;
 	private int comptAttaquant = 0;
 	private int comptDefenseur = 0;
+	private boolean enLice = true;
+	private int numEquipe;
+	private int victoire =0;
+	private int defaite = 0;
 
-	public Equipe(Club club, Entraineur e) {
+	public Equipe(Club club, Entraineur e, int numEquipe) {
 		titulaires = new TreeSet<>();
 		remplacant = new TreeSet<>();
 		this.club = club;
 		entraineur = e ;
+		this.numEquipe = numEquipe;
 	}
-
+	
 	public void ajouterJoueur(Joueur j) {
 		
 		if(!j.getClub().equals(club))
@@ -149,14 +154,59 @@ public class Equipe {
 		return s;
 	}
 
+	public Set<Joueur> getTitulaires() {
+		return titulaires;
+	}
+
 	public Club getClub() {
 		return club;
+	}
+
+	public boolean isEnLice() {
+		return enLice;
+	}
+
+	public void setEnLice(boolean enLice) {
+		this.enLice = enLice;
 	}
 
 	public void setEntraineur(Entraineur entraineur) {
 		this.entraineur = entraineur;
 	}
 	
+	public int getNumEquipe() {
+		return numEquipe;
+	}
+
+	public void setNumEquipe(int numEquipe) {
+		this.numEquipe = numEquipe;
+	}
+
+	public int getVictoire() {
+		return victoire;
+	}
+
+	public void setVictoire(int victoire) {
+		this.victoire = victoire;
+	}
+
+	public int getDefaite() {
+		return defaite;
+	}
+
+	public void setDefaite(int defaite) {
+		this.defaite = defaite;
+	}
+
 	
+	public int compareTo(Equipe arg0) {
+		if(this.numEquipe > arg0.numEquipe)
+			return 1;
+		if(this.numEquipe < arg0.numEquipe)
+			return -1;
+		return 0;
+		
+	}
+
 
 }

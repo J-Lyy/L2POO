@@ -15,19 +15,6 @@ public class Joueur extends Licencie implements Comparable<Joueur> {
 		this.poste = poste;
 		this.numeroMaillot = numeroDeMaillot;
 	}
-
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Joueur other = (Joueur) obj;
-		if (numeroDeLicence != other.numeroDeLicence)
-			return false;
-		return true;
-	}
 	
 	public String toString()
 	{

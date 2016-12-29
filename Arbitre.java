@@ -12,4 +12,6 @@ public class Arbitre extends Licencie {
 			throw new IllegalArgumentException("La catégorie doit être comprise entre 1 et 3");
 		this.categorie = categorie;
 	}
+	
+	
 }

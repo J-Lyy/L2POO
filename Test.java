@@ -1,6 +1,7 @@
 package projet;
 
 import java.util.Calendar;
+import java.util.*;
 
 public class Test {
 
@@ -9,8 +10,20 @@ public class Test {
 		
 		//Truc à mettre 
 		Calendar today = Calendar.getInstance();
+		Calendar d = new GregorianCalendar(2016,11,29);
+		d.set(Calendar.HOUR_OF_DAY, 18);
+		d.set(Calendar.MINUTE, 10);
 		
+		Calendar d1 = new GregorianCalendar(2017,0,5);
+		d1.set(Calendar.HOUR_OF_DAY, 10);
+		d1.set(Calendar.MINUTE, 30);
 		
+		Calendar d2 = new GregorianCalendar(2017,0,10);
+		d2.set(Calendar.HOUR_OF_DAY, 15);
+		d2.set(Calendar.MINUTE, 30);
+		/*Calendar cal = Calendar.getInstance();
+		cal.setTime(date.getTime();
+		cal.add(Calendar.DAY_OF_MONTH, nbJour);*/
 
 
 		
@@ -18,7 +31,7 @@ public class Test {
 		Club club = new Club("sport","Orleans");
 		//Club club1 = new Club("yolo","Strasbourg");
 		Entraineur ent = new Entraineur(101,"u","v",Calendar.getInstance(),club,3);
-		Equipe e = new Equipe(club,ent);
+		Equipe e = new Equipe(club,ent,1);
 		Joueur j1 = new Joueur(101,"Jean","David",Calendar.getInstance(),club,"attaquant",1);
 		Joueur j2 = new Joueur(111,"a","k",Calendar.getInstance(),club,"attaquant",2);
 		Joueur j3 = new Joueur(121,"b","l",Calendar.getInstance(),club,"attaquant",3);
@@ -32,7 +45,7 @@ public class Test {
 		Joueur j11= new Joueur(102,"j","t",Calendar.getInstance(),club,"defenseur",11);
 		Joueur j12= new Joueur(112,"u","v",Calendar.getInstance(),club,"gardien",12);
 		
-		//Joueur j13= new Joueur(113,"z","y",Calendar.getInstance(),club1,"gardien",13);
+		//Joueur j13= new Joueur(113,"z","y",Calendar.getInstance(),club,"attaquant",13);
 
 		//Ajout des joueurs
 		e.ajouterJoueur(j1);
@@ -50,18 +63,18 @@ public class Test {
 		//e.ajouterJoueur(j13);
 		//System.out.println(e.toString());
 		
-		if(e.equipeValide())
+		/*if(e.equipeValide())
 			System.out.println("equipe valide");
 		else
-			System.out.println("equipe non valide");
+			System.out.println("equipe non valide");*/
 		
 		
 		
 		//Creation de la deuxieme equipe
 		Club club2 = new Club("arar","Orlearrraans");
 		//Club club1 = new Club("yolo","Strasbourg");
-		Entraineur entraineur2 = new Entraineur(201,"uu","nv",Calendar.getInstance(),club2,3);
-		Equipe jjj = new Equipe(club2,entraineur2);
+		Entraineur entraineur2 = new Entraineur(202,"uu","nv",Calendar.getInstance(),club2,3);
+		Equipe jjj = new Equipe(club2,entraineur2,2);
 		Joueur jj1 = new Joueur(201,"Jeaaan","Darrvid",Calendar.getInstance(),club2,"attaquant",1);
 		Joueur jj2 = new Joueur(211,"azz","ka",Calendar.getInstance(),club2,"attaquant",2);
 		Joueur jj3 = new Joueur(221,"bzz","la",Calendar.getInstance(),club2,"attaquant",3);
@@ -94,10 +107,139 @@ public class Test {
 		
 		
 		Arbitre arbitro = new Arbitre(51, "arar", " araraez", today, club, 1 );
-		Match arar = new Match(e,jjj, arbitro,today);
+		
+		//Creation de la troisième equipe
+		Club club3 = new Club("arara","Orlearrraansa");
+		//Club club1 = new Club("yolo","Strasbourg");
+		Entraineur entraineur3 = new Entraineur(2020,"uuu","nv",Calendar.getInstance(),club3,3);
+		Equipe jjjj = new Equipe(club3,entraineur3,3);
+		Joueur jjj1 = new Joueur(2010,"Jeaaaan","Darrvid",Calendar.getInstance(),club3,"attaquant",1);
+		Joueur jjj2 = new Joueur(2110,"azzz","kaa",Calendar.getInstance(),club3,"attaquant",2);
+		Joueur jjj3 = new Joueur(2210,"bzzz","laa",Calendar.getInstance(),club3,"attaquant",3);
+		Joueur jjj4 = new Joueur(2310,"czzz","maa",Calendar.getInstance(),club3,"attaquant",4);
+		Joueur jjj5 = new Joueur(2410,"zzzd","aan",Calendar.getInstance(),club3,"defenseur",5);
+		Joueur jjj6 = new Joueur(2510,"ezzz","oaa",Calendar.getInstance(),club3,"defenseur",6);
+		Joueur jjj7 = new Joueur(2610,"zzzf","paa",Calendar.getInstance(),club3,"defenseur",7);
+		Joueur jjj8 = new Joueur(2710,"zzzg","qaa",Calendar.getInstance(),club3,"defenseur",8);
+		Joueur jjj9 = new Joueur(2810,"zhzz","raa",Calendar.getInstance(),club3,"attaquant",9);
+		Joueur jjj10 = new Joueur(2910,"zizz","saa",Calendar.getInstance(),club3,"gardien",10);
+		Joueur jjj11= new Joueur(2020,"jzzz","taaa",Calendar.getInstance(),club3,"defenseur",11);
+		Joueur jjj12= new Joueur(2120,"uzzz","aaav",Calendar.getInstance(),club3,"gardien",12);
+		
+		//Joueur j13= new Joueur(113,"z","y",Calendar.getInstance(),club1,"gardien",13);
+
+		//Ajout des joueurs
+		jjjj.ajouterJoueur(jjj1);
+		jjjj.ajouterJoueur(jjj2);
+		jjjj.ajouterJoueur(jjj3);
+		jjjj.ajouterJoueur(jjj4);
+		jjjj.ajouterJoueur(jjj5);
+		jjjj.ajouterJoueur(jjj6);
+		jjjj.ajouterJoueur(jjj7);
+		jjjj.ajouterJoueur(jjj8);
+		jjjj.ajouterJoueur(jjj9);
+		jjjj.ajouterJoueur(jjj10);
+		jjjj.ajouterJoueur(jjj11);
+		jjjj.ajouterJoueur(jjj12);
+		
+		
+		//Creation de la quatrieme equipe
+		Club club4 = new Club("araraa","Orlearrraaansa");
+		//Club club1 = new Club("yolo","Strasbourg");
+		Entraineur entraineur4 = new Entraineur(20200,"uuuu","nv",Calendar.getInstance(),club4,3);
+		Equipe jjjjj = new Equipe(club4,entraineur3,4);
+		Joueur jjjj1 = new Joueur(20100,"Jeaaaaan","Daarrvid",Calendar.getInstance(),club4,"attaquant",1);
+		Joueur jjjj2 = new Joueur(21100,"azzzz","kaaa",Calendar.getInstance(),club4,"attaquant",2);
+		Joueur jjjj3 = new Joueur(22100,"bzzzz","laaa",Calendar.getInstance(),club4,"attaquant",3);
+		Joueur jjjj4 = new Joueur(23100,"czzzz","maaa",Calendar.getInstance(),club4,"attaquant",4);
+		Joueur jjjj5 = new Joueur(24100,"zzzzd","aaan",Calendar.getInstance(),club4,"defenseur",5);
+		Joueur jjjj6 = new Joueur(25100,"ezzzz","oaaa",Calendar.getInstance(),club4,"defenseur",6);
+		Joueur jjjj7 = new Joueur(26100,"zzzzf","paaa",Calendar.getInstance(),club4,"defenseur",7);
+		Joueur jjjj8 = new Joueur(27100,"zzzzg","qaaa",Calendar.getInstance(),club4,"defenseur",8);
+		Joueur jjjj9 = new Joueur(28100,"zhzzz","raaa",Calendar.getInstance(),club4,"attaquant",9);
+		Joueur jjjj10 = new Joueur(29100,"zizzz","saaa",Calendar.getInstance(),club4,"gardien",10);
+		Joueur jjjj11= new Joueur(20200,"jzzzz","taaaa",Calendar.getInstance(),club4,"defenseur",11);
+		Joueur jjjj12= new Joueur(21200,"uzzzz","aaaav",Calendar.getInstance(),club4,"gardien",12);
+		
+		//Joueur j13= new Joueur(113,"z","y",Calendar.getInstance(),club1,"gardien",13);
+
+		//Ajout des joueurs
+		jjjjj.ajouterJoueur(jjjj1);
+		jjjjj.ajouterJoueur(jjjj2);
+		jjjjj.ajouterJoueur(jjjj3);
+		jjjjj.ajouterJoueur(jjjj4);
+		jjjjj.ajouterJoueur(jjjj5);
+		jjjjj.ajouterJoueur(jjjj6);
+		jjjjj.ajouterJoueur(jjjj7);
+		jjjjj.ajouterJoueur(jjjj8);
+		jjjjj.ajouterJoueur(jjjj9);
+		jjjjj.ajouterJoueur(jjjj10);
+		jjjjj.ajouterJoueur(jjjj11);
+		jjjjj.ajouterJoueur(jjjj12);
+		
+		Arbitre arbitro1 = new Arbitre(501, "arara", " araraez", d, club3, 1 );
+		Arbitre arbitro2 = new Arbitre(5001, "arara", " araraez", today, club4, 1 );
+		
+		TreeSet<Equipe> eL = new TreeSet<Equipe>();
+		eL.add(e);
+		eL.add(jjj);
+		eL.add(jjjj);
+		eL.add(jjjjj);
+		//System.out.println(eL);
+
+		TreeSet<Calendar> c = new TreeSet<Calendar>();
+		c.add(d);
+		c.add(today);
+		c.add(d1);
+		c.add(d2);
+		String s="";
+		Iterator<Calendar> it = c.iterator();
+		/*while(it.hasNext())
+		{
+			Calendar c1=it.next();
+			s+=c1.get(Calendar.HOUR_OF_DAY)+":"+c1.get(Calendar.MINUTE) +" le "+ c1.get(Calendar.DAY_OF_MONTH)+" "+ (c1.get(Calendar.MONTH)+1)+" " + c1.get(Calendar.YEAR)+"\n";
+		}
+		System.out.println(s);*/
+		//System.out.println(heureDebut.get(Calendar.HOUR)+":"+heureDebut.get(Calendar.MINUTE) +" le"+ heureDebut.get(Calendar.DAY_OF_MONTH)+" "+ (heureDebut.get(Calendar.MONTH)+1)+" " + heureDebut.get(Calendar.YEAR));
+		HashSet<Arbitre> a = new HashSet<Arbitre>();
+		a.add(arbitro);
+		a.add(arbitro1);
+		a.add(arbitro2);
+		//System.out.println(a);
+
+		
+		
+		
+		//creation du tournoi
+		Tournoi tournoi = new Tournoi(eL,c,a);
+		tournoi.equipesEnLice();
+		tournoi.tour();
+		//System.out.println(tournoi.toString());
+		tournoi.lanceMatch(1);
+		tournoi.lanceMatch(2);
+		System.out.println(tournoi.toString());
+		tournoi.tour();
+		System.out.println(tournoi.toString());
+		/*Tour tourI = new Tour(eL,1,4,c,a);
+		tourI.tour();
+		//System.out.println(tourI.toString());
+		tourI.lancerMatch(2);
+		System.out.println(tourI.toString());*/
+
+		
+		
+		
+		
+		
+		
+		/*Match arar = new Match(e,jjj, arbitro,today);
 		arar.but(jj2);
-		arar.but(j2);
 		arar.toString();
+		arar.but(j2);
+		arar.toString();*/
+		
+		//System.out.println(e.toString());
+		//System.out.println(jjj.toString());
 
 	}
 
