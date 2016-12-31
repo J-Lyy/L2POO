@@ -50,9 +50,11 @@ public class Tournoi {
 	
 	public void tour(){
 		if(tourActuel == 1){
+			//System.out.println("bijour1 " +equipesEnLice().size());
 			Tour tourInitial =new Tour(equipesEnLice(),tourActuel,nbEquipe,date,arbitres);
 			tourInitial.tour();
 			tours.add(tourInitial);
+			//System.out.println("taille1 : " + tours.size());
 			tourActuel++;
 			//System.out.println(tourInitial);
 		}
@@ -61,10 +63,20 @@ public class Tournoi {
 			Tour t = null;
 			while(it.hasNext()){
 				 t = it.next();
+				// System.out.println("tour t "+t.toString());
+				 //System.out.println("\n\n\n"+t.getNumTour()+"\n\n\n");
 			}
 			if(t.tourFini()){
+				//System.out.println(nbEquipe);
+				//System.out.println("taille2.0 : " + tours.size());
+				//System.out.println("bijour2 " +equipesEnLice().size());
 				Tour tourSuivant = new Tour(equipesEnLice(),tourActuel,nbEquipe,date,arbitres);
+				tourSuivant.tour();
+				//System.out.println("\n\n\n"+tourSuivant.getNumTour()+"\n\n\n");
 				tours.add(tourSuivant);
+				//System.out.println("tour suivant : "+tourSuivant+"\n\n");
+				//System.out.println("taille2 : " + tours.size());
+				//System.out.println(tours.toString());
 				tourActuel++;
 			}
 			else
@@ -92,6 +104,7 @@ public class Tournoi {
 		Iterator<Tour> it = tours.iterator();
 		while(it.hasNext()){
 			Tour t = it.next();
+			//System.out.println("tailleS : " + tours.size());
 			s+="Tour n°"+t.getNumTour()+" "+t.toString()+"\n";
 			//System.out.println(t);
 		}

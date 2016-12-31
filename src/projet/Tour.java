@@ -51,8 +51,12 @@ public class Tour implements Comparable<Tour>{
 	
 	
 	public void tour(){
+		//System.out.println("coucou");
 		Equipe e1 = null;
 		Equipe e2 = null;
+		Equipe test1 = null;
+		Equipe test2 = null;
+		int compt =0;
 		Calendar c = null;
 		//int numDate = 0;
 						
@@ -101,16 +105,28 @@ public class Tour implements Comparable<Tour>{
 				heureDebut.remove(c);
 				//}
 				//numDate++;
+				//System.out.println("BIJOUR " +new Match(e1,e2,a,c)+"\n\n");
 				tour.add(new Match(e1,e2,a,c));	
-				//System.out.println(tour);
+				//System.out.println("je test "+tour);
 			}
 		}
 		else{
+			//System.out.println(equipeLice.size());
 			Iterator<Equipe> it = equipeLice.iterator();
 			while(it.hasNext()){
-				e1 = it.next();
-				if(it.hasNext())
-					e2=it.next();
+				if(compt != 0){
+					e1 = test1;
+				}
+				else
+					e1 = it.next();
+				if(it.hasNext()){
+					if(compt != 0){
+						e2 = test1;
+					}
+					else
+						e2=it.next();
+				}
+					
 				else throw new IllegalArgumentException("Nombre d'equipe impair");
 				
 				int numArbitre = arbitreImpartial(e1,e2);
@@ -128,13 +144,26 @@ public class Tour implements Comparable<Tour>{
 				//}
 				//numDate++;
 				tour.add(new Match(e1,e2,a,c));	
+				if(it.hasNext()){
+					test1 = it.next();
+					if(it.hasNext()){
+						test2 = it.next();
+					}
+				}
 				
-				
+				equipeLice.remove(e1);
+				//System.out.println(equipeLice.size());
+				equipeLice.remove(e2);
+				//System.out.println(equipeLice.size());
+				compt++;
+				//System.out.println("je test "+tour);
 			}
 		}
 	}
 	
 	public void lancerMatch(int numMatch){
+		if(numMatch>nbMatch)
+			throw new IllegalArgumentException("Le numero du match est invalide");
 		int i =0;
 		Match m = null;
 		Joueur joueur =null;
@@ -200,7 +229,7 @@ public class Tour implements Comparable<Tour>{
 			return 1;
 		if(this.numTour<o.numTour)
 			return -1;
-		return 0;
+		return 1;
 	}
 
 	public static int getNumTour() {

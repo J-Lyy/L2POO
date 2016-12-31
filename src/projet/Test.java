@@ -78,7 +78,7 @@ public class Test {
 		
 		
 		//Creation de la deuxieme equipe
-		Club club2 = new Club("arar","Orlearrraans");
+		Club club2 = new Club("1","1");
 		//Club club1 = new Club("yolo","Strasbourg");
 		Entraineur entraineur2 = new Entraineur(202,"uu","nv",Calendar.getInstance(),club2,3);
 		Equipe jjj = new Equipe(club2,entraineur2,2);
@@ -116,7 +116,7 @@ public class Test {
 		Arbitre arbitro = new Arbitre(51, "arar", " araraez", today, club, 1 );
 		
 		//Creation de la troisième equipe
-		Club club3 = new Club("arara","Orlearrraansa");
+		Club club3 = new Club("2","2");
 		//Club club1 = new Club("yolo","Strasbourg");
 		Entraineur entraineur3 = new Entraineur(2020,"uuu","nv",Calendar.getInstance(),club3,3);
 		Equipe jjjj = new Equipe(club3,entraineur3,3);
@@ -151,7 +151,7 @@ public class Test {
 		
 		
 		//Creation de la quatrieme equipe
-		Club club4 = new Club("araraa","Orlearrraaansa");
+		Club club4 = new Club("3","3");
 		//Club club1 = new Club("yolo","Strasbourg");
 		Entraineur entraineur4 = new Entraineur(20200,"uuuu","nv",Calendar.getInstance(),club4,3);
 		Equipe jjjjj = new Equipe(club4,entraineur3,4);
@@ -224,9 +224,11 @@ public class Test {
 		//System.out.println(tournoi.toString());
 		tournoi.lanceMatch(1);
 		tournoi.lanceMatch(2);
+		//System.out.println("nop "+tournoi.equipesEnLice().size());
 		System.out.println(tournoi.toString());
 		//tournoi.equipesEnLice();
 		tournoi.tour();
+		tournoi.lanceMatch(1);
 		System.out.println(tournoi.toString());
 		/*Tour tourI = new Tour(eL,1,4,c,a);
 		tourI.tour();
