@@ -3,6 +3,13 @@ package projet;
 import java.util.Calendar;
 import java.util.*;
 
+/**
+ * Classe test
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ * 
+ */
+
 public class Test {
 
 	public static void main(String[] args) {
@@ -212,12 +219,13 @@ public class Test {
 		
 		//creation du tournoi
 		Tournoi tournoi = new Tournoi(eL,c,a);
-		tournoi.equipesEnLice();
+		//tournoi.equipesEnLice();
 		tournoi.tour();
 		//System.out.println(tournoi.toString());
 		tournoi.lanceMatch(1);
 		tournoi.lanceMatch(2);
 		System.out.println(tournoi.toString());
+		//tournoi.equipesEnLice();
 		tournoi.tour();
 		System.out.println(tournoi.toString());
 		/*Tour tourI = new Tour(eL,1,4,c,a);

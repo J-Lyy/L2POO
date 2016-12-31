@@ -1,6 +1,13 @@
 package projet;
 import java.util.*;
 
+/**
+ * Classe créant le tournoi
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ * 
+ */
+
 public class Tournoi {
 	int nbEquipe;
 	int nbTours=0;
@@ -86,7 +93,7 @@ public class Tournoi {
 		while(it.hasNext()){
 			Tour t = it.next();
 			s+="Tour n°"+t.getNumTour()+" "+t.toString()+"\n";
-			System.out.println(t);
+			//System.out.println(t);
 		}
 		return s;
 	}

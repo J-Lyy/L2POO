@@ -3,6 +3,13 @@ package projet;
 import java.util.*;
 import java.math.*;
 
+/**
+ * Classe créant les tours
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ * 
+ */
+
 public class Tour implements Comparable<Tour>{
 	private Set<Equipe> equipeLice;
 	private Set<Match> tour;

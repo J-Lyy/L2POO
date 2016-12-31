@@ -1,6 +1,13 @@
 package projet;
 import java.util.Calendar;
 
+/**
+ * Classe créant les matchs
+ * @author RENAULT Alexis
+ * @author LEVEQUE Quentin
+ * 
+ */
+
 public class Match implements Comparable<Match> {
 	
 	/*	On peut remplacer 2 joueurs, marquer un but, donner le score actuel
