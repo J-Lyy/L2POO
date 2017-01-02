@@ -225,11 +225,19 @@ public class Test {
 		tournoi.lanceMatch(1);
 		tournoi.lanceMatch(2);
 		//System.out.println("nop "+tournoi.equipesEnLice().size());
-		System.out.println(tournoi.toString());
+		//System.out.println(tournoi.toString());
 		//tournoi.equipesEnLice();
 		tournoi.tour();
 		tournoi.lanceMatch(1);
 		System.out.println(tournoi.toString());
+		System.out.println();
+		System.out.println(e);
+		System.out.println(jjj);
+		System.out.println(jjjj);
+		System.out.println(jjjjj);
+
+		System.out.println("meilleurs butteurs :\n"+ tournoi.troisMeilleusrButteurs());
+		//System.out.println(tournoi.rechercherRencontre(jjj, jjjj));
 		/*Tour tourI = new Tour(eL,1,4,c,a);
 		tourI.tour();
 		//System.out.println(tourI.toString());

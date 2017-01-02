@@ -1,5 +1,7 @@
 package projet;
 
+import java.io.Serializable;
+
 /**
  * Classe créant les clubs
  * @author RENAULT Alexis
@@ -7,7 +9,11 @@ package projet;
  * 
  */
 
-public class Club {
+public class Club implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Nom du club
 	 */

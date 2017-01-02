@@ -11,6 +11,10 @@ import java.util.Calendar;
 
 public class Entraineur extends Licencie {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Niveau de l'entraineur pouvant aller de 1 à 5
 	 */
 	private int niveau;

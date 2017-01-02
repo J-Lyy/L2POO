@@ -11,13 +11,46 @@ import java.math.*;
  */
 
 public class Tour implements Comparable<Tour>{
+	/**
+	 * L'ensemble des equipes en lice a ce tour
+	 */
 	private Set<Equipe> equipeLice;
+	
+	/**
+	 * L'ensemble des matchs a ce tour
+	 */
 	private Set<Match> tour;
+	
+	/**
+	 * Le numero du tour
+	 */
 	private static int numTour;
+	
+	/**
+	 * Le nombre de match a ce tour
+	 */
 	private int nbMatch;
+	
+	/**
+	 * L'ensemble des heures de debut des matchs
+	 */
 	private Set<Calendar> heureDebut ;
+	
+	/**
+	 * L'ensemble des arbitres
+	 */
 	private Set<Arbitre> arbitre;
 	
+	/**
+	 * Le constructeur de la classe Tour
+	 * Ici le TreeSet d'equioeLice n'a pas d'importance pour le tour initial car les equipes seront prises aleatoirement mais sera utile pour les tours suivant où les equipes seront prises dans l'ordre
+	 * L'ensemble des heures de debut est trie car on prend les heures dans l'ordre.
+	 * @param equipeLice L'ensemble des equipes en lice, allant former les matchs de ce tour
+	 * @param numTour Le numero du tour cree
+	 * @param tailleTournoi Le nombre d'equipe participant au tournoi (des le premier tour)
+	 * @param date L'ensemble d'heure de debut des matchs du tour
+	 * @param arbitre L'ensemble d'arbitre du tournoi
+	 */
 	public Tour(TreeSet<Equipe> equipeLice, int numTour, int tailleTournoi, TreeSet<Calendar> date, HashSet<Arbitre> arbitre){
 		this.equipeLice = equipeLice;
 		tour = new TreeSet<Match>();
@@ -27,6 +60,14 @@ public class Tour implements Comparable<Tour>{
 		this.arbitre = arbitre;
 	}
 	
+	/**
+	 * Permet de renvoyer, si possible, un arbitre impartial, ce qui veut dire, n'appartenant pas a un des deux clubs des equipes jouant le match.
+	 * Si cela n'est pas possible, on prendra le dernier selectionne.
+	 * @throws IllegalArgumentException Le tableau d'arbitre ne doit pas etre vide
+	 * @param e1 La premiere equipe du match
+	 * @param e2 La deuxieme equipe du match
+	 * @return Retourne si possible un arbitre impartial, sinon le dernier selectionne
+	 */
 	public int arbitreImpartial(Equipe e1, Equipe e2){
 		int tailleArbitre = arbitre.size();
 		int numArbitre;
@@ -49,7 +90,12 @@ public class Tour implements Comparable<Tour>{
 		return numArbitre;
 	}
 	
-	
+	/**
+	 * Methode principale de Tour permettant de creer le tour avec ses matchs.
+	 * Si numTour = 1, on cree le tour initial en prenant au hasard les equipes pour former les matchs.
+	 * Si numTour != 1, on se sert des gagnant du tour precedant pour former les matchs du tour.
+	 * @throws IllegalArgumentException Le nombre d'equipe doit etre multiple de 2
+	 */
 	public void tour(){
 		//System.out.println("coucou");
 		Equipe e1 = null;
@@ -127,7 +173,7 @@ public class Tour implements Comparable<Tour>{
 						e2=it.next();
 				}
 					
-				else throw new IllegalArgumentException("Nombre d'equipe impair");
+				else throw new IllegalArgumentException("Le nombre d'equipe doit etre multiple de 2");
 				
 				int numArbitre = arbitreImpartial(e1,e2);
 				Arbitre a = null;
@@ -161,6 +207,11 @@ public class Tour implements Comparable<Tour>{
 		}
 	}
 	
+	/**
+	 * Permet de lancer un match du tour, determinant aleatoirement le resultat (avec un maximum de 10 buts)
+	 * @param numMatch Le numero du match que l'on veut lancer
+	 * @throws IllegalArgumentException NumMatch doit etre inferieur ou egal au nombre de match
+	 */
 	public void lancerMatch(int numMatch){
 		if(numMatch>nbMatch)
 			throw new IllegalArgumentException("Le numero du match est invalide");
@@ -193,10 +244,13 @@ public class Tour implements Comparable<Tour>{
 			}
 			m.but(joueur);
 		}
-		m.setMatchFini(true);
+		m.finMatch();
 	}
 	
-	
+	/**
+	 * Teste si le tour est fini, ce qui veut dire que tous les matchs de ce tour sont termines
+	 * @return Retourne true si tous les matchs sont termines, sinon false
+	 */
 	public boolean tourFini(){
 		Iterator<Match> it = tour.iterator();
 		int compt = 0;
@@ -210,6 +264,35 @@ public class Tour implements Comparable<Tour>{
 		return false;
 	}
 	
+	
+	/**
+	 * getter de l'ensemble des matchs du tour
+	 * @return Retourne l'ensemble des matchs de ce tours
+	 */
+	public Set<Match> getTour() {
+		return tour;
+	}
+
+	/**
+	 * getter du nombre de match de ce tour
+	 * @return Retourne le nombre de match de ce tour
+	 */
+	public int getNbMatch() {
+		return nbMatch;
+	}
+	
+	/**
+	 * getter de numero du tour
+	 * @return Retourne le numero du tour
+	 */
+	public static int getNumTour() {
+		return numTour;
+	}
+
+	/**
+	 * Redefinition de la methode toString() pour Tour
+	 * @return Retourne via une chaine de caractère l'etat du tour
+	 */
 	public String toString(){
 		String s ="";
 		int compt = 1;
@@ -223,17 +306,17 @@ public class Tour implements Comparable<Tour>{
 		return s;
 	}
 
-	
+	/**
+	 * Redefinition de la methode compareTo() pour Tour, comparant le numero du tour
+	 * @param o Le tour a comparer avec le tour actuel
+	 * @return Retourne -1 si lle numero du tour actuel est inferieur a celui donne en parametre, 0 s'il est egal, ou positif s'il est superieur
+	 */
 	public int compareTo(Tour o) {
 		if(this.numTour>o.numTour)
 			return 1;
 		if(this.numTour<o.numTour)
 			return -1;
 		return 1;
-	}
-
-	public static int getNumTour() {
-		return numTour;
 	}
 	
 }

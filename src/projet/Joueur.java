@@ -11,6 +11,11 @@ import java.util.Calendar;
 
 public class Joueur extends Licencie implements Comparable<Joueur> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Le poste du joueur, pouvant être soit attaquant, soit defenseur soit gardien
 	 */
 	private String poste;
@@ -25,6 +30,11 @@ public class Joueur extends Licencie implements Comparable<Joueur> {
 	 * Initialise a false car le joueur n'est pas en jeu car aucun match n'a commence
 	 */
 	private boolean enJeu = false;
+	
+	/**
+	 * Le nombre de but fait par le joueur
+	 */
+	private int nbBut = 0;
 	
 	/**
 	 * Constructeur de la classe Arbitre
@@ -57,7 +67,7 @@ public class Joueur extends Licencie implements Comparable<Joueur> {
 			s += "actuellement en jeu" ;
 		else
 			s+= " actuellement sur le banc" ;
-		return (super.toString() + " au poste " + poste + ", numéro " + numeroMaillot + s) ;
+		return (super.toString() + " au poste " + poste + ", numéro " + numeroMaillot +" "+ s+" ayant fait "+nbBut+" buts") ;
 	}
 
 	/**
@@ -186,6 +196,23 @@ public class Joueur extends Licencie implements Comparable<Joueur> {
 	 */
 	public void setEnJeu(boolean enJeu) {
 		this.enJeu = enJeu;
+	}
+	
+	
+	/**
+	 * getter du nombre de but du joueur
+	 * @return Retourne le nombre de but du joueur
+	 */
+	public int getNbBut() {
+		return nbBut;
+	}
+
+	/**
+	 * setter du nombre de but du joueur
+	 * @param nbBut Le nouveau nombre de but du joueur
+	 */
+	public void setNbBut(int nbBut) {
+		this.nbBut = nbBut;
 	}
 
 	/**

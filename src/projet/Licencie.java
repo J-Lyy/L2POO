@@ -1,4 +1,5 @@
 package projet;
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -8,7 +9,12 @@ import java.util.Calendar;
  * 
  */
 
-public abstract class Licencie {
+public abstract class Licencie implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Numero de la licence du joueur/entraineur/arbitre

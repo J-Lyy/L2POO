@@ -11,6 +11,10 @@ import java.util.Calendar;
 
 public class Arbitre extends Licencie {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Categorie de l'arbitre pouvant etre compris entre 1 et 3
 	 */
 	private int categorie;

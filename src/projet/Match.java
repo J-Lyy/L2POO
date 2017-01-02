@@ -54,10 +54,10 @@ public class Match implements Comparable<Match> {
 	//Constructeurs
 	/**
 	 * Constructeur de la classe Match
-	 * @param e1 La premiere equipe du match
-	 * @param e2 La deuxieme equipe du match
-	 * @param a L'arbitre du match
-	 * @param hD L'heure de debut du match
+	 * @param e1 La premiere equipe du match cree
+	 * @param e2 La deuxieme equipe du match cree
+	 * @param a L'arbitre du match cree
+	 * @param hD L'heure de debut du match cree
 	 */
 	public Match(Equipe e1, Equipe e2, Arbitre a, Calendar hD) {
 		// Mettre un arbitre impartial
@@ -185,6 +185,7 @@ public class Match implements Comparable<Match> {
 			if (j.isEnJeu()){
 				//System.out.println("Oui oui");
 				scoreEquipe1 ++;
+				j.setNbBut(j.getNbBut()+1);
 				//System.out.println("But de " + j.getNom());
 				//System.out.println(score());
 			} else {
@@ -196,6 +197,7 @@ public class Match implements Comparable<Match> {
 			if (j.isEnJeu()){
 				//System.out.println("Non non");
 				scoreEquipe2 ++;
+				j.setNbBut(j.getNbBut()+1);
 				//System.out.println("But de " + j.getNom());
 				//System.out.println(score());
 			}else {
@@ -215,14 +217,17 @@ public class Match implements Comparable<Match> {
 	 * @throws IllegalArgumentException Les 2 joueurs sont tous les 2 en jeu ou hors jeu.
 	 */
 	public void remplacement(Joueur j1, Joueur j2) {
-		if(j1.isEnJeu() && !j2.isEnJeu()){
-			j1.setEnJeu(false);
-			j2.setEnJeu(true);
-		}else if(!j1.isEnJeu() && j2.isEnJeu()){
-			j1.setEnJeu(true);
-			j2.setEnJeu(false);
+		if(j1.getPoste().equals(j2.getPoste())){
+			if(j1.isEnJeu() && !j2.isEnJeu()){
+				j1.setEnJeu(false);
+				j2.setEnJeu(true);
+			}else if(!j1.isEnJeu() && j2.isEnJeu()){
+				j1.setEnJeu(true);
+				j2.setEnJeu(false);
+			}
+			else throw new IllegalArgumentException("Les 2 joueurs sont tous les 2 en jeu ou hors jeu.");
 		}
-		else throw new IllegalArgumentException("Les 2 joueurs sont tous les 2 en jeu ou hors jeu.");
+		else throw new IllegalArgumentException("Les 2 joueurs n'ont pas le même poste.");
 	}
 		
 	/*public void debutMatch(){
@@ -244,7 +249,17 @@ public class Match implements Comparable<Match> {
 	public void finMatch() {
 		equipe1.etatInitialEquipe();
 		equipe2.etatInitialEquipe();
-		System.out.println(score());
+		//System.out.println(score());
+		if(scoreEquipe1 > scoreEquipe2){
+			equipe2.setEnLice(false);
+			equipe1.setVictoire(equipe1.getVictoire()+1);
+			equipe2.setDefaite(equipe2.getDefaite()+1);
+		}
+		else{
+			equipe1.setEnLice(false);
+			equipe2.setVictoire(equipe2.getVictoire()+1);
+			equipe1.setDefaite(equipe1.getDefaite()+1);
+		}
 		matchFini = true;
 	}
 	
@@ -256,18 +271,21 @@ public class Match implements Comparable<Match> {
 	 * @return Retourne le numero de l'equipe gagnante
 	 */
 	public int getGagnant(){
+		
 		if(scoreEquipe1 > scoreEquipe2){
-			equipe2.setEnLice(false);
+			/*equipe2.setEnLice(false);
 			equipe1.setVictoire(equipe1.getVictoire()+1);
-			equipe2.setDefaite(equipe2.getDefaite()+1);
+			equipe2.setDefaite(equipe2.getDefaite()+1);*/
+			//System.out.println("coucou2 " + equipe2.isEnLice());
 			return 1; //si equipe 1 gagne
 			//return equipe1.getClub().getNom();
 		}
 			
 		else{
-			equipe1.setEnLice(false);
+			/*equipe1.setEnLice(false);
 			equipe2.setVictoire(equipe2.getVictoire()+1);
-			equipe1.setDefaite(equipe1.getDefaite()+1);
+			equipe1.setDefaite(equipe1.getDefaite()+1);*/
+			//System.out.println("coucou1 " + equipe1.isEnLice());
 			return 2; // si equipe 2 gagne
 			//return equipe2.getClub().getNom();
 		}
@@ -278,9 +296,9 @@ public class Match implements Comparable<Match> {
 	}
 
 	/**
-	 * Redefinition de la methode compareTo() pour Match, comparant le numero du match
-	 * @param arg0 Le match a comparer avec l'equipe actuelle
-	 * @return Retourne un nombre negatif si la date de debut du match actuelle est inferieur a celui donne en parametre, 0 s'il est egal, ou positif s'il est superieur
+	 * Redefinition de la methode compareTo() pour Match, comparant la date de debut du match
+	 * @param arg0 Le match a comparer avec le match actuel
+	 * @return Retourne un nombre negatif si la date de debut du match actuel est inferieure a celle donne en parametre, 0 si elle est egal, ou positif si elle est superieure
 	 */
 	public int compareTo(Match arg0) {
 		int x = this.heureDebut.get(Calendar.YEAR)-arg0.heureDebut.get(Calendar.YEAR);

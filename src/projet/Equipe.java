@@ -1,5 +1,6 @@
 package projet;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -9,7 +10,9 @@ import java.util.*;
  * 
  */
 
-public class Equipe implements Comparable<Equipe> {
+public class Equipe implements Comparable<Equipe>,Serializable {
+
+
 	/**
 	 * Ensemble des joueurs titulaires de l'equipe
 	 */
@@ -68,6 +71,11 @@ public class Equipe implements Comparable<Equipe> {
 	 * @param e L'entraineur de l'equipe cree
 	 * @param numEquipe Le numero de l'equipe cree
 	 */
+	
+	private int nbTitulaire = 9;
+	
+	private int nbRemplacantMax = 5;
+	
 	public Equipe(Club club, Entraineur e, int numEquipe) {
 		titulaires = new TreeSet<Joueur>();
 		remplacant = new TreeSet<Joueur>();
@@ -88,6 +96,20 @@ public class Equipe implements Comparable<Equipe> {
 	 * @throws IllegalArgumentException L'equipe n'a plus de place
 	 */ 
 	public void ajouterJoueur(Joueur j) {
+		Iterator<Joueur> it = titulaires.iterator();
+		int temp = 1;
+		while(it.hasNext()){
+			Joueur j1 = it.next();
+			if(j1.getNumeroMaillot() == temp)
+				temp++;
+			Iterator<Joueur> it1 = remplacant.iterator();
+			while(it1.hasNext()){
+				Joueur j2 = it1.next();
+				if(j2.getNumeroMaillot() == temp)
+					temp++;
+			}
+			j.setNumeroMaillot(temp);
+		}
 		
 		if(!j.getClub().equals(club))
 			throw new IllegalArgumentException("Impossible d'ajouter dans l'equipe un joueur d'un autre club");
@@ -98,7 +120,7 @@ public class Equipe implements Comparable<Equipe> {
 		if(j.getPoste().equals("gardien"))
 			if (aGardien())
 			{
-				if(remplacant.size()==5)
+				if(remplacant.size()==nbRemplacantMax)
 					throw new IllegalArgumentException("L'equipe n'a plus de place");
 				remplacant.add(j);
 			}
@@ -106,9 +128,9 @@ public class Equipe implements Comparable<Equipe> {
 				titulaires.add(j);
 			}
 		if (j.getPoste().equals("attaquant")) {
-			if (comptAttaquant == 4)
+			if (comptAttaquant == nbTitulaire/2)
 			{
-				if(remplacant.size()==5)
+				if(remplacant.size()==nbRemplacantMax)
 					throw new IllegalArgumentException("L'equipe n'a plus de place");
 				remplacant.add(j);
 			}
@@ -120,9 +142,9 @@ public class Equipe implements Comparable<Equipe> {
 		}
 
 		if (j.getPoste().equals("defenseur")) {
-			if (comptDefenseur == 4)
+			if (comptDefenseur == nbTitulaire/2)
 			{
-				if(remplacant.size()==5)
+				if(remplacant.size()==nbRemplacantMax)
 					throw new IllegalArgumentException("L'equipe n'a plus de place");
 				remplacant.add(j);
 			}
@@ -179,7 +201,23 @@ public class Equipe implements Comparable<Equipe> {
 		
 		return false;
 	}
-
+	
+	public void remplacement(Joueur j1, Joueur j2) {
+		if(this.getClub().equals(j1.getClub()) && this.getClub().equals(j2.getClub())){
+			if(j1.getPoste().equals(j2.getPoste())){
+				if(estTitulaire(j1) && !estTitulaire(j2)){
+					j1.setEnJeu(false);
+					j2.setEnJeu(true);
+				}else if(!j1.isEnJeu() && j2.isEnJeu()){
+					j1.setEnJeu(true);
+					j2.setEnJeu(false);
+				}
+				else throw new IllegalArgumentException("Les 2 joueurs sont tous les 2 en jeu ou hors jeu.");
+			}
+			else throw new IllegalArgumentException("Les 2 joueurs n'ont pas le même poste.");
+		}
+		else throw new IllegalArgumentException("Au moins un des des deux joueurs n'appartient pas a l'equipe.");
+	}
 	/**
 	 * Teste si l'equipe est valide, ce qui veut dire si celle-ci a bien 9 titulaires dont un gardien et qu'elle possede entre 1 et 5 remplacant
 	 * @return retourne true si l'equipe est valide, sinon false
@@ -255,6 +293,14 @@ public class Equipe implements Comparable<Equipe> {
 	 */
 	public Set<Joueur> getTitulaires() {
 		return titulaires;
+	}
+	
+	/**
+	 * getter des remplacants de l'equipe
+	 * @return Retourne l'ensemble des remplacants de l'equipe
+	 */
+	public Set<Joueur> getRemplacant() {
+		return remplacant;
 	}
 
 	/**
@@ -336,6 +382,42 @@ public class Equipe implements Comparable<Equipe> {
 	public void setDefaite(int defaite) {
 		this.defaite = defaite;
 	}
+	
+	
+	
+	public void setNbTitulaire(int nbTitulaire) {
+		if(nbTitulaire%2 == 1)
+			this.nbTitulaire = nbTitulaire;
+		else
+			throw new IllegalArgumentException("Le nombre de titulaire doit etre impair");
+	}
+
+	public void setNbRemplacantMax(int nbRemplacantMax) {
+		this.nbRemplacantMax = nbRemplacantMax;
+	}
+
+	
+	public void echangerNumeros(Joueur a, Joueur b){
+		int temp = a.getNumeroMaillot();
+		a.setNumeroMaillot(b.getNumeroMaillot());
+		b.setNumeroMaillot(temp);
+	}
+	
+	public void changerPoste(Joueur j1, Joueur j2){
+		if(this.getClub().equals(j1.getClub()) && this.getClub().equals(j2.getClub())){
+			if((estTitulaire(j1) && estTitulaire(j2)) || !estTitulaire(j1) && !estTitulaire(j2)){
+				if(!j1.getPoste().equals(j2.getPoste())){
+					String temp = j1.getPoste();
+					j1.setPoste(j2.getPoste());
+					j2.setPoste(temp);
+				}
+				else throw new IllegalArgumentException("Les deux joueurs ont le même poste");
+			}
+			else throw new IllegalArgumentException("Les deux joueurs doivent etre tous les deux titulaires ou remplacant");
+		}
+		else throw new IllegalArgumentException("Au moins un des deux joueurs n'appartient pas à l'equipe");
+
+	}
 
 	/**
 	 * Redefinition de la methode compareTo() pour Equipe, comparant le numero de l'equipe
@@ -348,8 +430,57 @@ public class Equipe implements Comparable<Equipe> {
 		if(this.numEquipe < arg0.numEquipe)
 			return -1;
 		return 0;
-		
 	}
+
+	/**
+	 * Redefinition de la methode equals() pour Equipe, comparant tous les attributs d'une equipe
+	 * @param obj L'equipe a comparer avec l'equipe actuelle
+	 * @return Retourne false si les deux equipes ne sont pas egales sinon true
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Equipe other = (Equipe) obj;
+		if (club == null) {
+			if (other.club != null)
+				return false;
+		} else if (!club.equals(other.club))
+			return false;
+		if (comptAttaquant != other.comptAttaquant)
+			return false;
+		if (comptDefenseur != other.comptDefenseur)
+			return false;
+		if (defaite != other.defaite)
+			return false;
+		if (enLice != other.enLice)
+			return false;
+		if (entraineur == null) {
+			if (other.entraineur != null)
+				return false;
+		} else if (!entraineur.equals(other.entraineur))
+			return false;
+		if (numEquipe != other.numEquipe)
+			return false;
+		if (remplacant == null) {
+			if (other.remplacant != null)
+				return false;
+		} else if (!remplacant.equals(other.remplacant))
+			return false;
+		if (titulaires == null) {
+			if (other.titulaires != null)
+				return false;
+		} else if (!titulaires.equals(other.titulaires))
+			return false;
+		if (victoire != other.victoire)
+			return false;
+		return true;
+	}
+	
+	
 
 
 }
